@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+        
+        {% block title %}
+            Login ! eSchool
+        {% endblock %}
+
+{% block maincontent %}
+    <div class="container">
+
+      <form class="form-signin" method="post" action="">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">Sign in</h2>
+          {{ form.as_p }}
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+
+      </form>
+      <p class="reset-password-link text-center">Forget your password? <a href="{% url 'school:reset_password' %}" >Click</a> to reset it. </p>
+    </div>
+{% endblock %}

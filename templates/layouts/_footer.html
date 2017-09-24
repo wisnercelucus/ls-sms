@@ -1,0 +1,26 @@
+      {% load static %}
+
+      <footer>
+	        <p class="text-center terms">&copy; {% now 'Y' %} School Name &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+
+	      <script src="{% static 'js/jquery.js' %}"></script>
+	      <script src="{% static 'js/jquery.min.js' %}"></script>
+		  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+		  <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+		  <script src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+          <script>
+          $(document).ready(function(){
+          	          $("#list_pupil").dataTable();
+			          $("#list_teacher").dataTable();
+			          $("#list_responsible").dataTable();
+			          $("#list_course").dataTable();
+			          $("#list_score").dataTable();
+			          $("#list_attendance").dataTable();
+
+          });
+
+          </script>
+
+
+
+	  </footer>

@@ -1,0 +1,26 @@
+.btn{
+	background-color: #978b7d;
+}
+
+.btn:hover{
+
+	background-color: rgba(151, 139, 126, 0.6);
+}
+.form-signin-heading{
+	color: #fff;
+}
+
+.form-signin label {
+	color: #fff;
+		font-size: 1.1em;
+}
+.reset-password-link{
+	color: #fff;
+	font-size: 1.3em;
+	margin-top: 20px;
+}
+.reset-password-link a{
+	color: #1ce;
+	font-size: 1.1em;
+	text-decoration: none;
+}
