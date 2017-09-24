@@ -1,4 +1,3 @@
-{%load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    {%load static %}
     <title>
         {% block title %}
             School Name
@@ -31,10 +30,89 @@
   </head>
 
   <body class="">
-    {% include 'layouts/_nav.html' %}
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'school:index' %}">CEMMAH</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        {% if user.is_authenticated %}
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pupils<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'school:add_new_pupil' %}">Add new pupil</a></li>
+                <li><a href="{% url 'school:list_pupil' %}">Manage pupils</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teachers<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'school:add_new_teacher' %}">Add new teacher</a></li>
+                <li><a href="{% url 'school:list_teacher' %}">Manage teachers</a></li>
+              </ul>
+            </li>
+            <li><a href="{% url 'school:list_responsible' %}">Responsibles</a></li>
+            <li><a href="{% url 'school:list_course' %}">Courses</a></li>
+            <li><a href="{% url 'school:list_attendance' %}">Attendances</a></li>
+            <li><a href="{% url 'school:list_score' %}">Scores</a></li>
+            <li><a href="#"></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ user.userprofile.image.url }}" alt="Image de profil de {{ user.username }}" class="avatar-xs"> {{ user.first_name }} {{ user.last_name }}<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="{% url 'school:logout' %}">Log out</a></li>
+                <li><a href="{% url 'school:change_password' %}">Change Password</a></li>
+              </ul>
+            </li>
+          </ul>
+        {% else %}
+        <ul class="nav navbar-nav navbar-right">
+             <li><a href="#" class="">Cursus</a></li>
+              <li><a href="#" class="">Donors</a></li>
+             <li> <a href="#" class="">About</a></li>
+              <li><a href="#" class="">Contact</a></li>
+              <li><a href="#" class=""></a><li>
+            <li><a href="{% url 'school:login' %}">Login</a></li>
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
     {% block maincontent %}
-    
+
     {% endblock %}
-    {% include 'layouts/_footer.html' %} 
+
+      <footer>
+            <p class="text-center terms">&copy; {% now 'Y' %} School Name &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+
+          <script src="{% static 'js/jquery.js' %}"></script>
+          <script src="{% static 'js/jquery.min.js' %}"></script>
+          <script src="{% static 'js/bootstrap.min.js' %}"></script>
+          <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+          <script src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+          <script>
+          $(document).ready(function(){
+                      $("#list_pupil").dataTable();
+                      $("#list_teacher").dataTable();
+                      $("#list_responsible").dataTable();
+                      $("#list_course").dataTable();
+                      $("#list_score").dataTable();
+                      $("#list_attendance").dataTable();
+
+          });
+
+          </script>
+
+
+
+      </footer>
  </body>
 </html>

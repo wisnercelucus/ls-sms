@@ -7,23 +7,20 @@
 {% block maincontent %}
         {% load static %}
       <div class="container">
-      <div class="row row-offcanvas row-offcanvas-right">
 
+      <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"></button>
           </p>
+
+          <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+          </div><!--/.sidebar-offcanvas-->
           <div class="jumbotron">
-            <img src= "{% static 'site-logo/cemmah.png' %}" width="750" height="400" />
+            <img src= "{% static 'site-logo/cemmah.png' %}" class="image-responsive" />
           </div>
           <div class="row">
 
-
-
-
-
-
-          
             <div class="col-xs-6 col-lg-4">
               <h2>Welcome to our new director</h2>
               <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
@@ -53,16 +50,6 @@
             </div><!--/.col-xs-6.col-lg-4-->
           </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
-
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-          <div class="list-group">
-            <a href="#" class="list-group-item active first-action">Menu</a>
-            <a href="#" class="list-group-item">About</a>
-            <a href="#" class="list-group-item">Contact</a>
-            <a href="#" class="list-group-item">Cursus</a>
-            <a href="#" class="list-group-item">Donors</a>
-          </div>
-        </div><!--/.sidebar-offcanvas-->
       </div><!--/row-->
       </div>
 {% endblock %}
