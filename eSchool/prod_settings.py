@@ -3,7 +3,7 @@ from .settings import *
 
 DEBUG = False
 TEMPLATE_DEBUG = False
-ALLOWED_HOSTS = ['cabinet-3a.herokuapp.com']
+ALLOWED_HOSTS = ['cemmah.herokuapp.com']
 
 
 MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware',]
