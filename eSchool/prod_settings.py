@@ -13,3 +13,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECRET_KEY = 'utlplp@sc2yh36c&9t!!4d4ody&b2@b(3qf&8y692*4va79dz4'
 
 DATABASES['default'] = dj_database_url.config()
+EMAIL_HOST = 'cemmah.herokuapp.com'
+EMAIL_PORT = 1025

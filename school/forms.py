@@ -60,6 +60,25 @@ class TeacherForm(forms.ModelForm):
 			)
 
 
+class ResponsibleForm(forms.ModelForm):
+
+	class Meta:
+		model = Responsible
+		fields = (
+			'first_name',
+			'last_name',
+			'email',
+			'sex',
+			'phone',
+			'mobile',
+			'city',
+			'profile_picture',
+			'address',
+			'profession',
+			'education_level',
+			'reslationshipWithPupil'
+			)
+
 class PupilForm(forms.ModelForm):
 
 	class Meta:
