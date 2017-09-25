@@ -62,7 +62,13 @@
                 <li><a href="{% url 'school:list_teacher' %}">Manage teachers</a></li>
               </ul>
             </li>
-            <li><a href="{% url 'school:list_responsible' %}">Responsibles</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Responsibles<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'school:add_new_responsible' %}">Add new Responsible</a></li>
+                <li><a href="{% url 'school:list_responsible' %}">Manage responsibles</a></li>
+              </ul>
+            </li>
             <li><a href="{% url 'school:list_course' %}">Courses</a></li>
             <li><a href="{% url 'school:list_attendance' %}">Attendances</a></li>
             <li><a href="{% url 'school:list_score' %}">Scores</a></li>

@@ -24,11 +24,11 @@
     <div class="table-responsive">
         <table class="table table-striped table-bordered" id="list_responsible">
             <thead>
-              <tr><th>#</th><th>First Name</th><th>Last Name</th><th>Address</th></tr>
+              <tr><th>Action</th><th>#</th><th>First Name</th><th>Last Name</th><th>Address</th></tr>
             </thead>
                 <tbody>
                 {% for resp in responsibles %}
-                    <tr><td>{{ resp.id }}</td><td>{{ resp.first_name }}</td><td>{{ resp.last_name }}</td><td>{{ resp.address }}</td></tr>
+                    <tr><td><a href="{% url 'school:update_responsible' id=resp.id %}" >edit</a></td><td><a href="{% url 'school:show_detail_responsible' id=resp.id %}">{{ resp.id }}</a></td><td>{{ resp.first_name }}</td><td>{{ resp.last_name }}</td><td>{{ resp.address }}</td></tr>
                 {% endfor %}
             </tbody>
     </table>

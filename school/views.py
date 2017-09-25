@@ -9,7 +9,8 @@ from .forms import (
 	RegistrationForm,
     EditProfileForm,
     PupilForm,
-    TeacherForm
+    TeacherForm,
+    ResponsibleForm
     )
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
@@ -301,11 +302,55 @@ def show_detail_teacher(request, id):
 	teacher = get_object_or_404(Teacher, pk=id)
 	return render(request, 'school/show_detail_teacher.html', {'teacher': teacher})
 
+def show_detail_responsible(request, id):
+	responsible = get_object_or_404(Responsible, pk=id)
+	return render(request, 'school/show_detail_responsible.html', {'responsible': responsible})
+
+def update_responsible(request, id):
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
+	if request.method == 'POST':
+		responsible = get_object_or_404(Responsible, id=id)
+		form = ResponsibleForm(request.POST or None,  request.FILES or None, instance=responsible)
+		if form.is_valid():
+			responsible = form.save(commit=False)		
+			responsible.save()
+			return redirect('school:list_teacher')
+	else:
+		responsible = get_object_or_404(Responsible, pk=id)
+		form = ResponsibleForm(request.POST or None,  request.FILES or None, instance=responsible )	
+		context = {
+			'form': form,
+		}
+		return render(request, 'school/responsible_form.html', context)
+
+
+def add_new_responsible(request):
+	if request.method == 'GET':
+		form = ResponsibleForm()
+		return render(request, 'school/responsible_form.html', { 'form': form })
+	if request.method == 'POST':
+		form = ResponsibleForm(data = request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('school:list_responsible')
+		else:
+			return redirect('/home/')
 
 def show_responsible_list(request):
-	responsibles = Responsible.objects.all()
-	site_name = 'CEMMAH'
-	return render(request, 'school/list_responsible.html', { 'site_name': site_name, 'responsibles': responsibles})
+	if request.method == 'GET':
+		form = ResponsibleForm()
+		responsibles = Responsible.objects.all()
+
+		site_name = 'CEMMAH'
+		context = {'site_name': site_name, 'form': form, 'responsibles': responsibles }
+		return render(request, 'school/list_responsible.html', context)
+	else:
+		form = ResponsibleForm(data = request.POST)
+		if form.is_valid():
+			responsible = form.save(commit=False)
+			responsible.save()
+			return redirect('school:list_responsible')
 
 def show_course_list(request):
 	courses = Course.objects.all()
