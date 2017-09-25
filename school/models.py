@@ -74,7 +74,7 @@ class ScoreRecorded(models.Model):
 	score_second_control = models.DecimalField(max_digits=6, decimal_places=2)
 	score_third_control = models.DecimalField(max_digits=6, decimal_places=2)
 	score_fourth_control = models.DecimalField(max_digits=6, decimal_places=2)
-	score_total = models.DecimalField(max_digits=6, decimal_places=2)
+	score_total = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
 class Attendance(models.Model):
 	date = models.DateField()

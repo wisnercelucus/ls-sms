@@ -10,7 +10,11 @@ from .forms import (
     EditProfileForm,
     PupilForm,
     TeacherForm,
-    ResponsibleForm
+    ResponsibleForm,
+    ScoreForm,
+    CourseForm,
+    AttendanceForm
+
     )
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
@@ -315,7 +319,7 @@ def update_responsible(request, id):
 		if form.is_valid():
 			responsible = form.save(commit=False)		
 			responsible.save()
-			return redirect('school:list_teacher')
+			return redirect('school:list_responsible')
 	else:
 		responsible = get_object_or_404(Responsible, pk=id)
 		form = ResponsibleForm(request.POST or None,  request.FILES or None, instance=responsible )	
@@ -353,22 +357,152 @@ def show_responsible_list(request):
 			return redirect('school:list_responsible')
 
 def show_course_list(request):
-	courses = Course.objects.all()
-	site_name = 'CEMMAH'
+	if request.method == 'GET':
+		form = CourseForm()
+		courses = Course.objects.all()
+		site_name = 'CEMMAH'
+		context = {'site_name': site_name, 'form':form, 'courses':courses }
+		return render(request, 'school/list_course.html', context)
+	else:
+		form = CourseForm(data = request.POST)
+		if form.is_valid():
+			course = form.save(commit=False)
+			course.save()
+			return redirect('school:list_course')
 
-	return render(request, 'school/list_course.html', { 'site_name': site_name, 'courses': courses })
+def add_new_course(request):
+	if request.method == 'GET':
+		form = CourseForm()
+		return render(request, 'school/course_form.html', { 'form': form })
+	if request.method == 'POST':
+		form =  CourseForm(data = request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('school:list_course')
+		else:
+			return redirect('/home/')
 
+def show_detail_course(request, id):
+	course = get_object_or_404(Course, pk=id)
+	return render(request, 'school/show_detail_course.html', {'course': course })
+
+
+def update_course(request, id):
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
+	if request.method == 'POST':
+		course = get_object_or_404(Course, id=id)
+		form = CourseForm(request.POST or None,  request.FILES or None, instance=course)
+		if form.is_valid():
+			course = form.save(commit=False)		
+			course.save()
+			return redirect('school:list_course')
+	else:
+		course = get_object_or_404(Course, pk=id)
+		form = CourseForm(request.POST or None,  request.FILES or None, instance=course )	
+		context = {
+			'form': form,
+		}
+		return render(request, 'school/course_form.html', context)
 
 def show_attendance_list(request):
-	attendances = Attendance.objects.all()
-	site_name = 'CEMMAH'
+	if request.method == 'GET':
+		form = AttendanceForm()
+		attendances = Attendance.objects.all()
+		site_name = 'CEMMAH'
+		context = {'site_name': site_name, 'form': form, 'attendances': attendances }
+		return render(request, 'school/list_attendance.html', context)
+	else:
+		form = AttendanceForm(data= request.POST)
+		if form.is_valid():
+			attendance = form.save(commit=False)
+			attendance.save()
+			return redirect('school:list_attendance')
 
-	return render(request, 'school/list_attendance.html', { 'site_name': site_name, 'attendances': attendances })
+def add_new_attendance(request):
+	if request.method == 'GET':
+		form = AttendanceForm()
+		return render(request, 'school/attendance_form.html', { 'form': form })
+	if request.method == 'POST':
+		form = AttendanceForm(data = request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('school:list_attendance')
+		else:
+			return redirect('/home/')
+
+
+def show_detail_attendance(request, id):
+	attendance = get_object_or_404(Attendance, pk=id)
+	return render(request, 'school/show_detail_attendance.html', {'attendance': attendance })
+
+def update_attendance(request, id):
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
+	if request.method == 'POST':
+		attendance = get_object_or_404(Attendance, id=id)
+		form = AttendanceForm(request.POST or None,  request.FILES or None, instance=attendance)
+		if form.is_valid():
+			attendance = form.save(commit=False)		
+			attendance.save()
+			return redirect('school:list_attendance')
+	else:
+		attendance = get_object_or_404(Attendance, pk=id)
+		form = AttendanceForm(request.POST or None,  request.FILES or None, instance=attendance )	
+		context = {
+			'form': form,
+		}
+		return render(request, 'school/attendance_form.html', context)
 
 def show_score_list(request):
-	scores = ScoreRecorded.objects.all()
-	site_name = 'CEMMAH'
-	return render(request, 'school/list_score.html', { 'site_name': site_name, 'scores': scores })
+	if request.method == 'GET':
+		form = ScoreForm()
+		scores = ScoreRecorded.objects.all()
+		site_name = 'CEMMAH'
+		context = {'site_name':site_name, 'form': form, 'scores': scores}
+		return render(request, 'school/list_score.html', context)
+	else:
+		form = ScoreForm(data= request.POST)
+		if form.is_valid():
+			score = form.save(commit=False)
+			score.save()
+			return redirect('school:list_score')
+
+def add_new_score(request):
+	if request.method == 'GET':
+		form = ScoreForm()
+		return render(request, 'school/score_form.html', { 'form': form })
+	if request.method == 'POST':
+		form = ScoreForm(data = request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('school:list_score')
+		else:
+			return redirect('/home/')
+
+def show_detail_score(request, id):
+	score = get_object_or_404(ScoreRecorded, pk=id)
+	return render(request, 'school/show_detail_score.html', {'score': score })
+
+
+def update_score(request, id):
+	if not request.user.is_staff or not request.user.is_superuser:
+		raise Http404
+	if request.method == 'POST':
+		score = get_object_or_404(ScoreRecorded, id=id)
+		form = ScoreForm(request.POST or None,  request.FILES or None, instance=score)
+		if form.is_valid():
+			score = form.save(commit=False)		
+			score.save()
+			return redirect('school:list_score')
+	else:
+		score = get_object_or_404(ScoreRecorded, pk=id)
+		form = ScoreForm(request.POST or None,  request.FILES or None, instance=score )	
+		context = {
+			'form': form,
+		}
+		return render(request, 'school/score_form.html', context)
+
 
 def show_detail_pupil(request, id):
 	pupil = get_object_or_404(Pupil, pk=id)

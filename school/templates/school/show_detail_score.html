@@ -1,0 +1,18 @@
+{% extends 'school/base.html' %}
+
+{% block title %}
+    Score #{{ score.id }} - detail
+{% endblock %}
+
+    {% block school_content %}
+    {% load static %}
+        <div class="container">
+            <p>Topic : {{ score.course_id.name }}</p>
+            <p>Pupil : {{ score.pupil_id.first_name}}</p>
+            <p>Score on control 1 : {{ score.score_first_control }}</p>  
+            <p>Score on control 2 : {{ score.score_second_control }}</p> 
+            <p>Score on control 3 : {{ score.score_third_control }}</p> 
+            <p>Score on control 3 : {{ score.score_fourth_control }}</p> 
+            <p>Score Total : {{ score.score_total }}</p> 
+       </div>      
+    {% endblock %}

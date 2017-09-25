@@ -24,11 +24,11 @@
             <div class="table-responsive">
               <table class="table table-striped table-bordered" id="list_responsible">
                <thead>
-                  <tr><th>Id</th><th>Date</th><th>Pupil</th><th>Attended</th><th>Comment</th></tr>
+                  <tr><th>Action</th><th>Id</th><th>Date</th><th>Pupil</th><th>Attended</th><th>Comment</th></tr>
                 </thead>
                 <tbody>
                   {% for att in attendances %}
-                     <tr><td>{{ att.id }}</td><td>{{ att.date }}</td><td>{{ att.pupil.first_name }}</td><td>{{ att.attended }}</td><td>{{ att.remarks }}</td></tr>
+                     <tr><td><a href="{% url 'school:update_attendance' id=att.id %}">edit</a></td><td><a href="{% url 'school:show_detail_attendance' id=att.id %}">{{ att.id }}</a></td><td>{{ att.date }}</td><td>{{ att.pupil.first_name }}</td><td>{{ att.attended }}</td><td>{{ att.remarks }}</td></tr>
                   {% endfor %}
                 </tbody>
             </table>

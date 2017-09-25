@@ -79,6 +79,43 @@ class ResponsibleForm(forms.ModelForm):
 			'reslationshipWithPupil'
 			)
 
+class ScoreForm(forms.ModelForm):
+
+	class Meta:
+		model = ScoreRecorded
+		fields = (
+			'course_id',
+			'pupil_id',
+			'score_first_control',
+			'score_second_control',
+			'score_third_control',
+			'score_fourth_control'
+
+			)
+
+class CourseForm(forms.ModelForm):
+
+	class Meta:
+		model = Course
+		fields = (
+			'name',
+			'description',
+			'teacher'
+
+			)
+
+class AttendanceForm(forms.ModelForm):
+
+	class Meta:
+		model = Attendance
+		fields = (
+			'date',
+			'pupil',
+			'attended',
+			'remarks'
+
+			)
+
 class PupilForm(forms.ModelForm):
 
 	class Meta:
