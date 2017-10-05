@@ -10,4 +10,6 @@ admin.site.register(Grade)
 admin.site.register(ScoreRecorded)
 admin.site.register(Attendance)
 admin.site.register(UserProfile)
+admin.site.register(Document)
+
 

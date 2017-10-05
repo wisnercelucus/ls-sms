@@ -51,10 +51,11 @@ def import_data(request):
 		if request.POST.get("object") == 'Pupil':
 			myfile = request.FILES['myfile']
 			document = Document()
-			fs = FileSystemStorage(location='eSchool/media/documents')
-			filename = fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.path(filename)
-			document.upload = uploaded_file_url
+			#fs = FileSystemStorage(location='eSchool/media/documents')
+			#filename = fs.save(myfile.name, myfile)
+			#uploaded_file_url = fs.path(filename)
+			document.upload = myfile
+			document.save()
 			data = csv.reader(open(document.upload.url), delimiter=',')
 			header = next(data)
 			header_cols = convert_header(header)
