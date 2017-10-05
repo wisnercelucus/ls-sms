@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'school',
     'import_export',
+    'storages',
 
 ]
 import djcelery
