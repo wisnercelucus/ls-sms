@@ -134,3 +134,10 @@ class PupilForm(forms.ModelForm):
 			'birth_date',
 			'responsible'
 			)
+
+class DocumentForm(forms.ModelForm):
+	class Meta:
+		model = Document
+		fields = (
+				'upload',
+			)

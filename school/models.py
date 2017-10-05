@@ -6,6 +6,10 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 
+class Document(models.Model):
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    upload = models.FileField(upload_to='documents', blank=True)
+
 class State(models.Model):
     status = models.BooleanField(default=True)
 

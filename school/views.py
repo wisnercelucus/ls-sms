@@ -13,7 +13,8 @@ from .forms import (
     ResponsibleForm,
     ScoreForm,
     CourseForm,
-    AttendanceForm
+    AttendanceForm,
+    DocumentForm
 
     )
 from django.contrib.auth.models import User
@@ -49,10 +50,12 @@ def import_data(request):
 
 		if request.POST.get("object") == 'Pupil':
 			myfile = request.FILES['myfile']
+			document = Document()
 			fs = FileSystemStorage(location='eSchool/media/documents')
 			filename = fs.save(myfile.name, myfile)
 			uploaded_file_url = fs.path(filename)
-			data = csv.reader(open(uploaded_file_url), delimiter=',')
+			document.upload = uploaded_file_url
+			data = csv.reader(open(document.upload.url), delimiter=',')
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
