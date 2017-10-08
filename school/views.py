@@ -21,22 +21,22 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-
+import pandas as pd
 from django.urls import reverse_lazy
 
 
 
 # Create your views here.
 
-def convert_header(csvHeader):
 
-	cols = [ x.replace(' ', '_').lower() for x in csvHeader ]
-	return cols
 
 
 def index(request):
-    
 	return render(request, 'school/index.html', args)
+
+def convert_header(csvHeader):
+	cols = [ x.replace(' ', '_').lower() for x in csvHeader ]
+	return cols
 
 def import_data(request):
 	if request.method == 'GET':
@@ -49,14 +49,16 @@ def import_data(request):
 			return render(request, 'school/import.html', {'message': message })
 
 		if request.POST.get("object") == 'Pupil':
-			myfile = request.FILES['myfile']
-			document = Document()
-			#fs = FileSystemStorage(location='eSchool/media/documents')
-			#filename = fs.save(myfile.name, myfile)
-			#uploaded_file_url = fs.path(filename)
-			document.upload = myfile
-			document.save()
-			data = csv.reader(open(document.upload.url), delimiter=',')
+			doc = Document()
+			myfile = request.FILES['myfile'] 
+			
+			fs = FileSystemStorage(location='eSchool/media/documents')
+			filename =  fs.save(myfile.name, myfile)
+			uploaded_file_url = fs.path(filename)
+			doc.upload = uploaded_file_url
+			doc.save()
+			data = csv.reader(open(doc.upload.url), delimiter=',')
+			
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
@@ -67,7 +69,6 @@ def import_data(request):
 					row_item = row[k].split(',')
 					for item in row_item:
 						key = header_cols[k]
-						#print(key)
 						if key == 'responsible':
 							item = Responsible.objects.get(pk= int(item))
 							print(item.first_name)
@@ -80,6 +81,7 @@ def import_data(request):
 				i = i + 1
 			detailed = 'Sucessfully created '+ str(i) + ' Pupils '
 			return render(request,  'school/import_success.html', {'detailed' : detailed })
+
 
 		if request.POST.get("object") == 'Course':
 			myfile = request.FILES['myfile']
