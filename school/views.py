@@ -53,10 +53,10 @@ def import_data(request):
 			doc = Document()
 			fs = FileSystemStorage(location='eSchool/media/documents')
 			filename =  fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.url(filename)
-			doc.upload = uploaded_file_url
+			uploaded_file_url = fs.path(filename)
+			doc.upload = myfile
 			doc.save()
-			data = csv.reader(open(doc.upload.url), delimiter=',')
+			data = csv.reader(open(doc.upload.path), delimiter=',')
 			
 			header = next(data)
 			header_cols = convert_header(header)
