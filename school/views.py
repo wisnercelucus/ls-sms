@@ -50,10 +50,13 @@ def import_data(request):
 
 		if request.POST.get("object") == 'Pupil':
 			myfile = request.FILES['myfile'] 
+			doc = Document()
 			fs = FileSystemStorage(location='eSchool/media/documents')
 			filename =  fs.save(myfile.name, myfile)
 			uploaded_file_url = fs.url(filename)
-			data = csv.reader(open(uploaded_file_url), delimiter=',')
+			doc.upload = uploaded_file_url
+			doc.save()
+			data = csv.reader(open(doc.upload.url), delimiter=',')
 			
 			header = next(data)
 			header_cols = convert_header(header)
