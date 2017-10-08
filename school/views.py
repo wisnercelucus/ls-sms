@@ -49,15 +49,11 @@ def import_data(request):
 			return render(request, 'school/import.html', {'message': message })
 
 		if request.POST.get("object") == 'Pupil':
-			doc = Document()
 			myfile = request.FILES['myfile'] 
-			
 			fs = FileSystemStorage(location='eSchool/media/documents')
 			filename =  fs.save(myfile.name, myfile)
 			uploaded_file_url = fs.path(filename)
-			doc.upload = uploaded_file_url
-			doc.save()
-			data = csv.reader(open(doc.upload.url), delimiter=',')
+			data = csv.reader(open(uploaded_file_url), delimiter=',')
 			
 			header = next(data)
 			header_cols = convert_header(header)
