@@ -24,3 +24,10 @@
 	font-size: 1.1em;
 	text-decoration: none;
 }
+
+.avatar-xs{
+	
+	border-radius: 100%;
+	height: 25px;
+	width: 25px;
+}
