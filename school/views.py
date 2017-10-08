@@ -56,7 +56,7 @@ def import_data(request):
 			uploaded_file_url = fs.path(filename)
 			doc.upload = myfile
 			doc.save()
-			data = csv.reader(open(doc.upload.path), delimiter=',')
+			data = csv.reader(open(doc.upload.url), delimiter=',')
 			
 			header = next(data)
 			header_cols = convert_header(header)
