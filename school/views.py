@@ -52,7 +52,7 @@ def import_data(request):
 			myfile = request.FILES['myfile'] 
 			fs = FileSystemStorage(location='eSchool/media/documents')
 			filename =  fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.path(filename)
+			uploaded_file_url = fs.url(filename)
 			data = csv.reader(open(uploaded_file_url), delimiter=',')
 			
 			header = next(data)
