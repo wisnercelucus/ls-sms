@@ -9,7 +9,7 @@ fs = FileSystemStorage(location='eSchool/media/documents')
 
 class Document(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    upload = models.FileField()
+    upload = models.FileField(upload_to='documents')
 
 class State(models.Model):
     status = models.BooleanField(default=True)

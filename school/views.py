@@ -53,9 +53,10 @@ def import_data(request):
 			doc.save()
 			print(doc.upload.url)
 			if settings.DEBUG == True:
-				data = csv.reader(open(doc.upload.path), delimiter=',')
+				data = csv.reader(open(doc.upload.url), delimiter=',')
 			else:
-				data = csv.reader(open(doc.upload.path), delimiter=',')
+				data = csv.reader(open(doc.upload.url), delimiter=',')
+				print(doc.upload.url)
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
