@@ -53,7 +53,7 @@ def import_data(request):
 			doc.save()
 			print(doc.upload.url)
 			if settings.DEBUG == True:
-				data = csv.reader(open(doc.upload.url), delimiter=',')
+				data = csv.reader(open(doc.upload.path), delimiter=',')
 			else:
 				data = csv.reader(open(doc.upload.url), delimiter=',')
 				print(doc.upload.url)
