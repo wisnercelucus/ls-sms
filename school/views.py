@@ -24,8 +24,6 @@ from django.contrib.auth.decorators import login_required
 import pandas as pd
 from django.urls import reverse_lazy
 
-
-
 # Create your views here.
 
 
@@ -51,13 +49,13 @@ def import_data(request):
 		if request.POST.get("object") == 'Pupil':
 			myfile = request.FILES['myfile'] 
 			doc = Document()
-			fs = FileSystemStorage(location='eSchool/media/documents')
-			filename =  fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.path(filename)
 			doc.upload = myfile
 			doc.save()
-			data = csv.reader(open(doc.upload.url), delimiter=',')
-			
+			print(doc.upload.url)
+			if settings.DEBUG == True:
+				data = csv.reader(open(doc.upload.path), delimiter=',')
+			else:
+				data = csv.reader(open(doc.upload.url), delimiter=',')
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
@@ -70,7 +68,7 @@ def import_data(request):
 						key = header_cols[k]
 						if key == 'responsible':
 							item = Responsible.objects.get(pk= int(item))
-							print(item.first_name)
+							#print(item.first_name)
 							setattr(pupil, key, item)
 						else:
 							setattr(pupil, key, item)	
