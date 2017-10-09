@@ -54,11 +54,11 @@ def import_data(request):
 			doc.upload = myfile
 			doc.save()
 			print(doc.upload.url)
-			if settings.DEBUG == True:
-				data = csv.reader(open(doc.upload.path), delimiter=',')
-			else:
+			if settings.DEBUG == True: # execute that block locally
+				data = csv.reader(open(doc.upload.path), delimiter=',') # locally the file is red frm the path so i us doc.upload.path
+			else: #this block is executed in production. So the file is red from the url. so I use doc.upload.url
 				rep = requests.get(doc.upload.url)
-				text = codecs.iterdecode(rep.iter_lines(), 'latin_1')
+				text = codecs.iterdecode(rep.iter_lines(), 'latin_1') #codecs is use to decode the lines. I don't really master how it works.
 				data = csv.reader(text, delimiter = ',')
 			header = next(data)
 			header_cols = convert_header(header)
