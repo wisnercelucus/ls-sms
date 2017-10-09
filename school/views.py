@@ -23,6 +23,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 from django.urls import reverse_lazy
+import requests
+import codecs
 
 # Create your views here.
 
@@ -55,7 +57,9 @@ def import_data(request):
 			if settings.DEBUG == True:
 				data = csv.reader(open(doc.upload.path), delimiter=',')
 			else:
-				data = pd.read_csv(doc.upload.url, sep=',')
+				rep = requests.get(doc.upload.url)
+				text = codecs.iterdecode(rep.iter_lines(), 'latin_1')
+				data = csv.reader(text, delimiter = ',')
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
