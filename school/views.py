@@ -86,10 +86,22 @@ def import_data(request):
 
 		if request.POST.get("object") == 'Course':
 			myfile = request.FILES['myfile']
-			fs = FileSystemStorage(location='eSchool/media/documents')
-			filename = fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.path(filename)
-			data = csv.reader(open(uploaded_file_url), delimiter=',')
+
+			doc = Document()
+			doc.upload = myfile
+			doc.save()
+			print(doc.upload.url)
+			if settings.DEBUG == True:
+				data = csv.reader(open(doc.upload.path), delimiter=',')
+			else:
+				rep = requests.get(doc.upload.url)
+				text = codecs.iterdecode(rep.iter_lines(), 'latin_1')
+				data = csv.reader(text, delimiter = ',')
+
+			#fs = FileSystemStorage(location='eSchool/media/documents')
+			#filename = fs.save(myfile.name, myfile)
+			#uploaded_file_url = fs.path(filename)
+			#data = csv.reader(open(uploaded_file_url), delimiter=',')
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
@@ -115,10 +127,16 @@ def import_data(request):
 
 		if request.POST.get("object") == 'Attendance':
 			myfile = request.FILES['myfile']
-			fs = FileSystemStorage(location='eSchool/media/documents')
-			filename = fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.path(filename)
-			data = csv.reader(open(uploaded_file_url), delimiter=',')
+			doc = Document()
+			doc.upload = myfile
+			doc.save()
+			print(doc.upload.url)
+			if settings.DEBUG == True:
+				data = csv.reader(open(doc.upload.path), delimiter=',')
+			else:
+				rep = requests.get(doc.upload.url)
+				text = codecs.iterdecode(rep.iter_lines(), 'latin_1')
+				data = csv.reader(text, delimiter = ',')
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
@@ -148,10 +166,16 @@ def import_data(request):
 
 		if request.POST.get("object") == 'Responsible':
 			myfile = request.FILES['myfile']
-			fs = FileSystemStorage(location='eSchool/media/documents')
-			filename = fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.path(filename)
-			data = csv.reader(open(uploaded_file_url), delimiter=',')
+			doc = Document()
+			doc.upload = myfile
+			doc.save()
+			print(doc.upload.url)
+			if settings.DEBUG == True:
+				data = csv.reader(open(doc.upload.path), delimiter=',')
+			else:
+				rep = requests.get(doc.upload.url)
+				text = codecs.iterdecode(rep.iter_lines(), 'latin_1')
+				data = csv.reader(text, delimiter = ',')
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
@@ -171,10 +195,16 @@ def import_data(request):
 
 		if request.POST.get("object") == 'Teacher':
 			myfile = request.FILES['myfile']
-			fs = FileSystemStorage(location='eSchool/media/documents')
-			filename = fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.path(filename)
-			data = csv.reader(open(uploaded_file_url), delimiter=',')
+			doc = Document()
+			doc.upload = myfile
+			doc.save()
+			print(doc.upload.url)
+			if settings.DEBUG == True:
+				data = csv.reader(open(doc.upload.path), delimiter=',')
+			else:
+				rep = requests.get(doc.upload.url)
+				text = codecs.iterdecode(rep.iter_lines(), 'latin_1')
+				data = csv.reader(text, delimiter = ',')
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
@@ -195,10 +225,16 @@ def import_data(request):
 
 		if request.POST.get("object") == 'Score':
 			myfile = request.FILES['myfile']
-			fs = FileSystemStorage(location='eSchool/media/documents')
-			filename = fs.save(myfile.name, myfile)
-			uploaded_file_url = fs.path(filename)
-			data = csv.reader(open(uploaded_file_url), delimiter=',')
+			doc = Document()
+			doc.upload = myfile
+			doc.save()
+			print(doc.upload.url)
+			if settings.DEBUG == True:
+				data = csv.reader(open(doc.upload.path), delimiter=',')
+			else:
+				rep = requests.get(doc.upload.url)
+				text = codecs.iterdecode(rep.iter_lines(), 'latin_1')
+				data = csv.reader(text, delimiter = ',')
 			header = next(data)
 			header_cols = convert_header(header)
 			i = 0
