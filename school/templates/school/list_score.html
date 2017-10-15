@@ -5,7 +5,7 @@
 	{% endblock %}
 
         {% block display_table %}
-
+        {% load mathfilters %}
         <div class="panel panel-default">
           <div class="panel-heading">
             <strong>Total number of scores {{ scores|length }}</strong>
@@ -28,7 +28,7 @@
                 </thead>
                 <tbody>
                     {% for s in scores %}
-                    <tr><td><a href="{% url 'school:update_score' id=s.id %}" >edit</a></td><td><a href="{% url 'school:show_detail_score' id=s.id %}">{{ s.id }}</a></td><td>{{ s.course_id.name }}</td><td>{{ s.pupil_id.first_name }}</td><td>{{ s.score_first_control }}</td><td>{{ s.score_second_control }}</td><td>{{ s.score_third_control }}</td><td>{{ s.score_fourth_control }}</td><td>{{ s.score_total }}</td></tr>
+                    <tr><td><a href="{% url 'school:update_score' id=s.id %}" >edit</a></td><td><a href="{% url 'school:show_detail_score' id=s.id %}">{{ s.id }}</a></td><td>{{ s.course_id.name }}</td><td>{{ s.pupil_id.first_name }}</td><td>{{ s.score_first_control }}</td><td>{{ s.score_second_control }}</td><td>{{ s.score_third_control }}</td><td>{{ s.score_fourth_control }}</td><td>{{  s.score_first_control|add:s.score_second_control|add:s.score_third_control|add:s.score_fourth_control }}</td></tr>
                     {% endfor %}
                 </tbody>
             </table>

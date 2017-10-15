@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.core.files.storage import FileSystemStorage
 
 # Create your models here.
-fs = FileSystemStorage(location='eSchool/media/documents')
+#fs = FileSystemStorage(location='eSchool/media/documents')
 
 class Document(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True)
@@ -75,11 +75,10 @@ class Course(models.Model):
 class ScoreRecorded(models.Model):
 	course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
 	pupil_id = models.ForeignKey(Pupil, on_delete=models.CASCADE)
-	score_first_control = models.DecimalField(max_digits=6, decimal_places=2)
-	score_second_control = models.DecimalField(max_digits=6, decimal_places=2)
-	score_third_control = models.DecimalField(max_digits=6, decimal_places=2)
-	score_fourth_control = models.DecimalField(max_digits=6, decimal_places=2)
-	score_total = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+	score_first_control = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+	score_second_control = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+	score_third_control = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+	score_fourth_control = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
 class Attendance(models.Model):
 	date = models.DateField()
@@ -94,7 +93,7 @@ class UserProfile(models.Model):
 	city = models.CharField(max_length=250, default='')
 	website = models.URLField(default='')
 	phone = models.IntegerField(default=0)
-	image = models.ImageField(upload_to='profile_images', blank=True)
+	image = models.ImageField(upload_to='profile_images', blank=True, null=True)
 
 
 	def __str__(self):

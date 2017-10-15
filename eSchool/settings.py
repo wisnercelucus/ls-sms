@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'school',
     'import_export',
     'storages',
+    'mathfilters',
 
 ]
 import djcelery
