@@ -20,21 +20,21 @@ class State(models.Model):
 class BasicDesc(models.Model):
 	first_name = models.CharField(max_length=255)
 	last_name = models.CharField(max_length=255)
-	email = models.EmailField()
+	email = models.EmailField(null=True)
 	sex = models.CharField(max_length=10)
-	phone = models.CharField(max_length=50)
+	phone = models.CharField(max_length=50, null=True)
 	mobile = models.CharField(max_length=50)
-	city = models.CharField(max_length=50)
+	city = models.CharField(max_length=50, null=True)
 	profile_picture = models.ImageField(upload_to='profile_images', blank=True)
-	address = models.CharField(max_length=250)
+	address = models.CharField(max_length=250, null=True)
 
 	class Meta:
 		abstract = True
 
 class Responsible(BasicDesc):
-	profession = models.CharField(max_length=255)
-	education_level = models.CharField(max_length=70)
-	reslationshipWithPupil = models.CharField(max_length=250)
+	profession = models.CharField(max_length=255, null=True)
+	education_level = models.CharField(max_length=70, null=True)
+	reslationshipWithPupil = models.CharField(max_length=250, null=True)
 
 	def __str__(self):
 		return self.first_name
@@ -50,14 +50,14 @@ class Pupil(BasicDesc, State):
 
 
 class Teacher(BasicDesc, State):
-    academic_level = models.CharField(max_length=250)
+    academic_level = models.CharField(max_length=250, null=True)
 
     def __str__(self):
     	return self.first_name
 
 class Grade(models.Model):
-	name = models.CharField(max_length=200)
-	description = models.CharField(max_length=255)
+	name = models.CharField(max_length=200, null=True)
+	description = models.CharField(max_length=255, null=True)
 
 	def __str__(self):
 		return self.name
@@ -65,7 +65,9 @@ class Grade(models.Model):
 
 class Course(models.Model):
 	name = models.CharField(max_length=200)
-	description = models.CharField(max_length=255)
+	description = models.CharField(max_length=255, null=True)
+	base = models.IntegerField(default=0, null=True)
+	coefficient = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 	teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
 
@@ -89,10 +91,10 @@ class Attendance(models.Model):
 # Create your models here.
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
-	description = models.CharField(max_length=255)
-	city = models.CharField(max_length=250, default='')
-	website = models.URLField(default='')
-	phone = models.IntegerField(default=0)
+	description = models.CharField(max_length=255, null=True)
+	city = models.CharField(max_length=250, default='', null=True)
+	website = models.URLField(default='', null=True)
+	phone = models.IntegerField(default=0, null=True)
 	image = models.ImageField(upload_to='profile_images', blank=True, null=True)
 
 
