@@ -5,6 +5,7 @@
 	{% endblock %}
 
     {% block display_table %}
+    {% load crispy_forms_tags %}
 
 
         <div class="panel panel-default">
@@ -15,9 +16,9 @@
               <div id="messages"></div>
 
                 <div class="pull pull-right">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addTeacher" id="addClassModelBtn"> 
-                        <i class="glyphicon glyphicon-plus-sign"></i>Add Teacher
-                    </button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTeacherModal">
+                       <i class="fa fa-plus"></i> Add Teacher
+                  </button>
                 </div>
 
                 <br /> <br /> <br />
@@ -39,31 +40,29 @@
         </div>
 
 
-        <div class="modal fade" tabindex="-1" role="dialog" id="addTeacher">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Teacher</h4>
-              </div>
-
-              <form class="form-horizontal container" method="post" id="createTeacherForm" enctype="multipart/form-data">
-               {% csrf_token %}
-               <div class="modal-body create-modal">
-                <div class="row">
-                   <div class="col-md-12">
-                    <div class="form-group container">
-              
-                     {{ form.as_p }}
-                     <input type="submit" class="btn btn-default" name="submit" value="Save">
+              <div class="modal fade" id="addTeacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="addTeacherModalLabel">Add Teacher</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                   </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                        <form class="form-popup" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          {{ form|crispy }}
+                          <input type="submit" class="btn btn-default" name="submit" value="Save">           
+                         </form>
+                         </div>
+                      </div> 
+                    </div>
+                  </div>
                 </div>
-               </div>
-              </form>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+              </div>
 
 		
     {% endblock %}

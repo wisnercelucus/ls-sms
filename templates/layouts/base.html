@@ -13,141 +13,26 @@
             School Name
         {% endblock %}
     </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" >
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" >
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <!-- Bootstrap core CSS 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  -->
-    
-    <!--<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" >-->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
-    <!--<link href="{% static 'css/dataTables.bootstrap.min.css' %}" rel="stylesheet" type="text/css" >-->
-    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.0/lity.min.css" integrity="sha256-kgOoigZTP1lSBr7QDdEQ4mcwFAi0pvmCcvfcnRYHicc=" crossorigin="anonymous" />
+
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" >
     <link href="{% static 'css/signin.css' %}" rel="stylesheet" type="text/css" >
-    <!-- <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" type="text/css" >-->
-    <link rel="icon" href="{% static 'site-logo/cemmah.png' %}">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" >
+
+    <link rel="icon" href="{% static 'site-logo/smartlylogo.png' %}">
 
     {% block stylesheet %}
     {% endblock %}
 
   </head>
 
-  <body class="">
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{% url 'school:index' %}">CEMMAH</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-        {% if user.is_authenticated %}
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pupils<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'school:add_new_pupil' %}">Add new pupil</a></li>
-                <li><a href="{% url 'school:list_pupil' %}">Manage pupils</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teachers<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'school:add_new_teacher' %}">Add new teacher</a></li>
-                <li><a href="{% url 'school:list_teacher' %}">Manage teachers</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Responsibles<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'school:add_new_responsible' %}">Add new Responsible</a></li>
-                <li><a href="{% url 'school:list_responsible' %}">Manage responsibles</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Courses<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'school:add_new_course' %}">Add new Course</a></li>
-                <li><a href="{% url 'school:list_course' %}">Manage Courses</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Attendances<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'school:add_new_attendance' %}">Add new Attendance</a></li>
-                <li><a href="{% url 'school:list_attendance' %}">Manage Attendances</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Scores<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'school:add_new_score' %}">Add new Score</a></li>
-                <li><a href="{% url 'school:list_score' %}">Manage Scores</a></li>
-              </ul>
-            </li>
-            <li><a href="#"></a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% if user.userprofile.image %}<img src="{{ user.userprofile.image.url }}" alt="Image de profil de {{ user.username }}" class="avatar-xs"> {% endif %} {{ user.first_name }} {{ user.last_name }}<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                {% if request.user.is_staff or request.user.is_superuser %}<li><a href="/admin">Admin</a></li> {% endif %}
-                <li><a href="">Profile</a></li>
-                <li><a href="{% url 'school:logout' %}">Log out</a></li>
-                <li><a href="{% url 'school:change_password' %}">Change Password</a></li>
-              </ul>
-            </li>
-          </ul>
-        {% else %}
-        <ul class="nav navbar-nav navbar-right">
-             <li><a href="#" class="">Cursus</a></li>
-              <li><a href="#" class="">Donors</a></li>
-             <li> <a href="#" class="">About</a></li>
-              <li><a href="#" class="">Contact</a></li>
-              <li><a href="#" class=""></a><li>
-            <li><a href="{% url 'school:login' %}">Login</a></li>
-        </ul>
-        {% endif %}
-      </div>
-    </div>
-  </nav>
     {% block maincontent %}
 
     {% endblock %}
 
-      <footer>
-            <p class="text-center terms">&copy; {% now 'Y' %} School Name &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-
-          <!--<script src="{% static 'js/jquery.js' %}"></script>-->
-          <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-          crossorigin="anonymous"></script>
-          <!--<script src="{% static 'js/jquery.min.js' %}"></script>-->
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-         <!-- <script src="{% static 'js/bootstrap.min.js' %}"></script>-->
-          <!--<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>-->
-          
-          <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-          <!--<script src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>-->
-          <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-          <script>
-          $(document).ready(function(){
-                      $("#list_pupil").dataTable();
-                      $("#list_teacher").dataTable();
-                      $("#list_responsible").dataTable();
-                      $("#list_course").dataTable();
-                      $("#list_score").dataTable();
-                      $("#list_attendance").dataTable();
-                      $(".list_overview").dataTable();
-
-          });
-
-          </script>
-
-
-
-      </footer>
- </body>
 </html>

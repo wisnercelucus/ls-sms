@@ -6,8 +6,6 @@ import csv
 from .models import *
 from eSchool.mysettings import args
 from .forms import (
-	RegistrationForm,
-    EditProfileForm,
     PupilForm,
     TeacherForm,
     ResponsibleForm,
@@ -15,10 +13,8 @@ from .forms import (
     CourseForm,
     AttendanceForm,
     DocumentForm
-
     )
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 import pandas as pd
@@ -49,6 +45,7 @@ def import_data(request):
 			return render(request, 'school/import.html', {'message': message })
 
 		if request.POST.get("object") == 'Pupil':
+			pupils = []
 			myfile = request.FILES['myfile'] 
 			doc = Document()
 			doc.upload = myfile
@@ -77,14 +74,15 @@ def import_data(request):
 						else:
 							setattr(pupil, key, item)	
 					k +=1
-				
-				pupil.save()
+				pupils.append(pupil)
+				#pupil.save()
 				i = i + 1
 			detailed = 'Sucessfully created '+ str(i) + ' Pupils '
+			Pupil.objects.bulk_create(pupils)
 			return render(request,  'school/import_success.html', {'detailed' : detailed })
 
-
 		if request.POST.get("object") == 'Course':
+			courses = []
 			myfile = request.FILES['myfile']
 
 			doc = Document()
@@ -119,13 +117,16 @@ def import_data(request):
 						else:
 							setattr(course, key, item)	
 					k +=1
-				
-				course.save()
+				courses.append(course)
+				#course.save()
+			
 				i = i + 1
+			Course.objects.bulk_create(courses)
 			detailed = 'Sucessfully created '+ str(i) + ' Courses'
 			return render(request,  'school/import_success.html', {'detailed' : detailed })
 
 		if request.POST.get("object") == 'Attendance':
+			attendances = []
 			myfile = request.FILES['myfile']
 			doc = Document()
 			doc.upload = myfile
@@ -159,12 +160,14 @@ def import_data(request):
 							setattr(attendance, key, item)	
 					k +=1
 				
-				attendance.save()
+				attendances.append(attendance)
 				i = i + 1
+			Attendance.objects.bulk_create(attendances)
 			detailed = 'Sucessfully created '+ str(i) + ' attendances'
 			return render(request,  'school/import_success.html', {'detailed' : detailed })
 
 		if request.POST.get("object") == 'Responsible':
+			responsibles = []
 			myfile = request.FILES['myfile']
 			doc = Document()
 			doc.upload = myfile
@@ -188,12 +191,15 @@ def import_data(request):
 						key = header_cols[k]
 						setattr(responsible, key, item)	
 					k +=1
-				responsible.save()
+				responsibles.append(responsible)
+			
 				i = i + 1
+			Responsible.objects.bulk_create(responsibles)
 			detailed = 'Sucessfully created '+ str(i) + ' responsibles'
 			return render(request,  'school/import_success.html', {'detailed' : detailed })
 
 		if request.POST.get("object") == 'Teacher':
+			teachers = []
 			myfile = request.FILES['myfile']
 			doc = Document()
 			doc.upload = myfile
@@ -217,13 +223,15 @@ def import_data(request):
 						key = header_cols[k]
 						setattr(teacher, key, item)	
 					k +=1
-				teacher.save()
+				teachers.append(teacher)
 				i = i + 1
+			Teacher.objects.bulk_create(teachers)
 			detailed = 'Sucessfully created '+ str(i) + ' teachers'
 			return render(request,  'school/import_success.html', {'detailed' : detailed })
 
 
 		if request.POST.get("object") == 'Score':
+			scores =[]
 			myfile = request.FILES['myfile']
 			doc = Document()
 			doc.upload = myfile
@@ -253,8 +261,9 @@ def import_data(request):
 							setattr(score, key, item)
 						setattr(score, key, item)
 					k +=1
-				score.save()
+				scores.append(score)
 				i = i + 1
+			ScoreRecorded.objects.bulk_create(scores)
 			detailed = 'Sucessfully created '+ str(i) + ' line of academic performances'
 			return render(request,  'school/import_success.html', {'detailed' : detailed })
 
@@ -327,7 +336,6 @@ def add_new_teacher(request):
 			teacher = form.save(commit=False)
 			teacher.save()
 			return redirect('school:list_teacher')
-
 
 def update_teacher(request, id):
 	if not request.user.is_staff or not request.user.is_superuser:
@@ -555,16 +563,3 @@ def show_detail_pupil(request, id):
 	pupil = get_object_or_404(Pupil, pk=id)
 	return render(request, 'school/show_detail_pupil.html', {'pupil': pupil })
 
-def change_password(request):
-	if request.method == 'POST':
-		form = PasswordChangeForm(data= request.POST, user=request.user)
-		if form.is_valid():
-			form.save()
-			update_session_auth_hash(request, form.user)
-			return redirect('/home/')
-		else:
-			return redirect('/home/change-password')
-	else:
-		form = PasswordChangeForm(user=request.user)
-		args = {'form': form}
-		return render(request, 'pages/change_password.html', args)

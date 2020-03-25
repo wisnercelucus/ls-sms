@@ -40,13 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'school',
-    'import_export',
-    'storages',
     'mathfilters',
+    'userprofile',
 
 ]
-import djcelery
+
 
 
 MIDDLEWARE = [
@@ -131,6 +131,7 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -138,22 +139,30 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/home/'
 
-LOGIN_URL = '/home/login/'
+LOGIN_URL = '/profile/login/'
 
 LOGIN_EXEMPT_URLS = (
-        r'^$',
-        r'^home/logout/$',
-        r'^home/password-reset/$',
-        r'^home/password-reset/done/$',
-        r'^home/password-reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
-        r'^home/password-reset/complete/$'
+        r'/',
+        r'^profile/logout/$',
+        r'^profile/password-reset/$',
+        r'^profile/password-reset/done/$',
+        r'^profile/password-reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        r'^profile/password-reset/complete/$'
 
     )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'eSchool/media')
 MEDIA_URL = '/media/'
 
-
+USE_I18N = True
+USE_L10N = True
+DATE_INPUT_FORMATS = [
+    '%Y-%m-%d', '%m/%d/%Y', '%m/%d/%y', # '2006-10-25', '10/25/2006', '10/25/06'
+    '%b %d %Y', '%b %d, %Y',            # 'Oct 25 2006', 'Oct 25, 2006'
+    '%d %b %Y', '%d %b, %Y',            # '25 Oct 2006', '25 Oct, 2006'
+    '%B %d %Y', '%B %d, %Y',            # 'October 25 2006', 'October 25, 2006'
+    '%d %B %Y', '%d %B, %Y',            # '25 October 2006', '25 October, 2006'
+]
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025

@@ -6,13 +6,19 @@
 
     {% block school_content %}
     {% load static %}
-    <div class="container form-group">
-    <h1>Add new attendance</h1><hr>
-            <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" name="submit" value="Save" class="btn btn-default" />
-            </form>      
+    {% load crispy_forms_tags %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Add new attendance</h1><hr>
+                <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" name="submit" value="Save" class="btn btn-default" />
+            </form>       
+            </div>
+        </div>
+     
     </div>
         
     {% endblock %}

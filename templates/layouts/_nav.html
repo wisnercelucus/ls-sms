@@ -1,0 +1,118 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'site-logo/Smartly logoyu.png' %}" alt="Site logo"></a>
+
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fa fa-bars"></i>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Pupils
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'school:add_new_pupil' %}">Add new pupil</a>
+            <a class="dropdown-item" href="{% url 'school:list_pupil' %}">Manage pupils</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Teachers
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'school:add_new_teacher' %}">Add new teacher</a>
+            <a class="dropdown-item" href="{% url 'school:list_teacher' %}">Manage teachers</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Responsibles
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'school:add_new_responsible' %}">Add new Responsible</a>
+            <a class="dropdown-item" href="{% url 'school:list_responsible' %}">Manage responsibles</a>
+        </div>
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Courses
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'school:add_new_course' %}">Add new Course</a>
+            <a class="dropdown-item" href="{% url 'school:list_course' %}">Manage Courses</a>
+        </div>
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Attendances
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'school:add_new_attendance' %}">Add new Attendance</a>
+            <a class="dropdown-item" href="{% url 'school:list_attendance' %}">Manage Attendances</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Scores
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'school:add_new_score' %}">Add new Score</a>
+            <a class="dropdown-item" href="{% url 'school:list_score' %}">Manage Scores</a>
+        </div>
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {% if user.userprofile.image %}<img src="{{ user.userprofile.image.url }}" alt="Image de profil de {{ user.username }}" class="avatar-xs"> {% endif %} {{ user.first_name }} {{ user.last_name }} 
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% if request.user.is_staff or request.user.is_superuser %}
+              <a class="dropdown-item" href="/admin">Admin</a>
+              {% endif %}
+            <a class="dropdown-item" href="{% url 'userprofile:profile' %}">Profile</a>
+              <a class="dropdown-item" href="{% url 'userprofile:logout' %}">Log out</a>
+            <a class="dropdown-item" href="{% url 'userprofile:change_password' %}">Change Password</a> 
+        </div>
+
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      
+      
+      {% else %}
+
+      <li class="nav-item">
+        <a class="nav-link" href="#">About us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Donors</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'userprofile:login' %}">Login</a>
+      </li>
+     {% endif %} 
+      <li class="nav-item">
+        <a class="nav-link btn-donate" href="#">Donate</a>
+      </li>
+    </ul>
+  </div>
+</nav>

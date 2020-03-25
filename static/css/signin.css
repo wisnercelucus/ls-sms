@@ -1,51 +1,75 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Pacifico');
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: rgba(0, 0, 255, 0.9);
+
+
+.login {
+  min-height: 100vh;
+  font-family: montserrat;
+  background-image: linear-gradient(90deg, rgba(210,28,203,1) 0%, rgba(1,4,69,1) 100%);
 }
 
 .form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: 5px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  margin-top: 40px;
+  width: 360px;
+  max-width: 100%;
+  padding: 20px 50px;
+  border: 1px solid rgba(210,28,203,0.6);
+  border-radius: 10px;
 }
 
-.nav li a{
-
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.2em;
+.form-signin .login-avatar{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 40px;
 }
-.navbar-brand{
-  font-family: 'Pacifico', Helvetica;
+.form-signin .login-avatar img{
+  width: 70px;
 }
 
+.form-signin-heading {
+  color:#fff;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.form-signin  label{
+  font-size: 17px;
+  color: #fff;
+}
+.reset-password-link{
+  color: #fff;
+  font-size: 15px;
+}
+.reset-password-link a{
+
+  color: #1ce;
+}
+
+.form-signin .btn{
+  background-image: linear-gradient(90deg, rgba(210,28,203,1) 0%, rgba(1,4,69,1) 100%);
+  border: none !important;
+}
+.form-signin .btn:focus{
+  border: none !important;
+  
+}
+.form-signin .form-group{
+  width: 100%;
+  margin-bottom: 30px;
+}
+.form-signin .form-group div{
+  border-bottom: 2px solid #adadad !important;
+}
+.form-signin .form-group div input{
+  border: none !important;
+  width: 100%;
+  border-radius: none !important;
+  font-size: 15px;
+  outline: none !important;
+  background-image: linear-gradient(to right, rgba(210,28,203,1) 30%, rgba(1,4,69,1) 100%);
+}
+.form-signin .form-group div input:focus{
+  border: none !important;
+  font-size: 15px;
+  color: #fff;
+  outline: none !important;
+  background-image: linear-gradient(to right, rgba(210,28,203,1) 30%, rgba(1,4,69,1) 100%);
+}

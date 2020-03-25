@@ -1,22 +1,23 @@
 {% extends 'school/base_display.html' %}
 
 	{% block title %}
-		Scores' list | {{ site_name }}
+		Exam Marks' list | {{ site_name }}
 	{% endblock %}
 
         {% block display_table %}
         {% load mathfilters %}
+        {% load crispy_forms_tags %}
         <div class="panel panel-default">
           <div class="panel-heading">
-            <strong>Total number of scores {{ scores|length }}</strong>
+            <strong>Total number of Exam Marks {{ scores|length }}</strong>
           </div>
           <div class="panel-body">          
               <div id="messages"></div>
 
                 <div class="pull pull-right">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addScore" id="addClassModelBtn"> 
-                        <i class="glyphicon glyphicon-plus-sign"></i>Add Score
-                    </button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addScoreModal">
+                       <i class="fa fa-plus"></i> Add Exam Mark
+                  </button>
                 </div>
 
                 <br /> <br /> <br />
@@ -24,11 +25,26 @@
             <div class="table-responsive">
                     <table class="table table-striped table-bordered" id="list_responsible">
                 <thead>
-                   <tr><th>Action</th><th>Id</th><th>Topic</th><th>Pupil Id</th><th>Score Firts Control</th><th>Score Second Control</th><th>Score Third Control</th><th>Score Fourth Control</th><th>Score Total</th></tr>
+                   <tr><th>Action</th><th>Id</th><th>Topic</th><th>Pupil</th><th>Score Firts Control</th><th>Score Second Control</th><th>Score Third Control</th><th>Score Fourth Control</th></tr>
                 </thead>
                 <tbody>
                     {% for s in scores %}
-                    <tr><td><a href="{% url 'school:update_score' id=s.id %}" >edit</a></td><td><a href="{% url 'school:show_detail_score' id=s.id %}">{{ s.id }}</a></td><td>{{ s.course_id.name }}</td><td>{{ s.pupil_id.first_name }}</td><td>{{ s.score_first_control }}</td><td>{{ s.score_second_control }}</td><td>{{ s.score_third_control }}</td><td>{{ s.score_fourth_control }}</td><td>{{  s.score_first_control|add:s.score_second_control|add:s.score_third_control|add:s.score_fourth_control }}</td></tr>
+                    <tr><td><a href="{% url 'school:update_score' id=s.id %}" >edit</a></td><td><a href="{% url 'school:show_detail_score' id=s.id %}">{{ s.id }}</a></td><td>{{ s.course_id.name }}</td><td>{{ s.pupil_id.first_name }}</td>
+                    <td>
+                      {% if s.score_first_control %}{{ s.score_first_control }} {% endif %}
+                    </td>
+
+                    <td>
+                      {% if s.score_second_control %}{{ s.score_second_control }} {% endif %}
+                    </td>
+                    <td>
+                    {% if s.score_third_control %}{{ s.score_third_control }} {% endif %}
+                    </td>
+
+                    <td>
+                      {% if s.score_fourth_control %}{{ s.score_fourth_control }} {% endif %}
+                    </td>
+                  </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -37,32 +53,29 @@
           </div>
         </div>
 
-
-        <div class="modal fade" tabindex="-1" role="dialog" id="addScore">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Score</h4>
-              </div>
-
-              <form class="form-horizontal container" method="post" id="createTeacherForm" enctype="multipart/form-data">
-               {% csrf_token %}
-               <div class="modal-body create-modal">
-                <div class="row">
-                   <div class="col-md-12">
-                    <div class="form-group container">
-              
-                     {{ form.as_p }}
-                     <input type="submit" class="btn btn-default" name="submit" value="Save">
+              <div class="modal fade" id="addScoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="addScoreModalLabel">Add Exam Mark</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                   </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                        <form class="form-popup" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          {{ form|crispy }}
+                          <input type="submit" class="btn btn-default" name="submit" value="Save">           
+                         </form>
+                         </div>
+                      </div> 
+                    </div>
+                  </div>
                 </div>
-               </div>
-              </form>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+              </div>
 
 
         {% endblock %}		

@@ -1,1 +1,1 @@
-args = {'site_name': 'CEMMAH'}
+args = {'site_name': 'SMARTLY'}

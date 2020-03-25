@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url, include, handler404, handler500
 from django.contrib import admin
-from django.contrib.auth.views import login
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,6 +26,7 @@ handler500 = 'eSchool.views.handler500'
 urlpatterns = [
 
     url(r'^$', views.index, name='index'),
+    url(r'^profile/', include('userprofile.urls')),
     url(r'^home/', include('school.urls')),
     url(r'^admin/', admin.site.urls, name='admin'),
 ]

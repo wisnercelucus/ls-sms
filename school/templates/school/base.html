@@ -5,9 +5,13 @@
     	<link rel="stylesheet" href="{% static 'school/styles.css' %} " type ="text/css">
     {% endblock %}
 {% block maincontent %}
-
+    <body class="school">
+    	<section class="nav-bar">
+        {% include 'layouts/_nav.html' %}
+      </section>
 	   {% block school_content %}
 		
        {% endblock %}
-
+       {% include 'layouts/_footer.html' %}
+    </body>
 {% endblock %}
